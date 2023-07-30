@@ -1,6 +1,9 @@
+//code obtained from: https://github.com/KrisKasprzak/ESP32_WebPage
 #include <WiFi.h>
 #include <WebServer.h>
 #include "Main_Page.h"
+
+//#define SENSOR_PIN 36
 
 IPAddress actual_ip;
 IPAddress page_ip(192,168,1,1);
@@ -10,53 +13,62 @@ IPAddress ip;
 
 WebServer server(80);
 
-#define WIFI_NAME = "NAME";
-#define WIFI_PASSWORD = "PASS";
+#define WIFI_NAME "HOMERSIMPSON"
+#define WIFI_PASSWORD "4D2A1BC2"
 
 char xml[2048]; // buffer for XML operations
 char buffer[64]; // buffer to make operations (add stuff to the XML)
-int soil_moisture = 413; // dummy value
+
+//char* soil_status = "";
+///int soil_moisture = analogRead(SENSOR_PIN);
+int soil_moisture = 413;
+//const int bad_soil = 1230;
+//const int good_soil = 2460;
+//const int very_good_soil = 3690;
 
 void setup() {
-  Serial.begin(9600);
- 
-	WiFi.begin(WIFI_NAME,WIFI_PASSWORD);
+	Serial.begin(9600);
 
-	while(WiFi.status() != WL_CONNECTED) {} // while it's not connected to wifi, try to connect to it. We don't need to do nothin' inside this loop 'cause we don't do this process manually!
+	WiFi.begin(WIFI_NAME, WIFI_PASSWORD);
 
-  Serial.print("Go to: ");
-  Serial.println(WiFi.localIP());
+	while(WiFi.status() != WL_CONNECTED) { Serial.print('.'); } // while it's not connected to wifi, try to connect to it. We don't need to do nothin' inside this loop 'cause we don't do this process manually!
 
-  actual_ip = WiFi.localIP();
+	Serial.print("\nGo to: ");
+	Serial.println(WiFi.localIP());
 
-  server.on("/", send_website);
-  server.on("/xml", send_xml);
+	actual_ip = WiFi.localIP();
 
-  server.begin();
+	server.on("/", send_website);
+	server.on("/xml", send_xml);
+
+	server.begin();
 }
 
 void loop() {
-  server.handleClient();  
+	server.handleClient();
 }
 
 void send_website() {
-  Serial.println("Sending HTML");
+	Serial.println("Sending HTML");
 
-  server.send(200, "text/html", MAIN_PAGE);
+	server.send(200, "text/html", MAIN_PAGE);
 }
 
 void send_xml() {
-  Serial.println("Sending XML");
+	Serial.println("Sending XML");
 
-  strcpy(xml, "<?xml version = '1.0'?>\n<Data>\n"); // must keep. xml header.
+	strcpy(xml, "<?xml version = '1.0'?>\n<Data>\n"); // must keep. xml header.
 
-// to send data to the XML you can use those C flags (%d, %i, %c, etc)
-// we will need to sprintf what we want to the buffer
-// and then strcat from the buffer to the xml buffer
-  sprintf(buffer, "<Moisture>%d</Moisture>", soil_moisture);
+//  https://www.tutorialspoint.com/c_standard_library/c_function_sprintf.htm
+  sprintf(buffer, "<Moisture>%d</Moisture>", soil_moisture); 
+	strcat(xml, buffer);
+
+/*
+stuff for later... maybe
+  sprintf(buffer, "<SoilStatus>%s</SoilStatus>, soil_status);
   strcat(xml, buffer);
+*/
 
-  strcat(xml, "</Data>\n");
-
-  server.send(200, "text/xml", xml);
+	strcat(xml, "</Data>\n");
+	server.send(200, "text/xml", xml);
 }
