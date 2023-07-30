@@ -13,8 +13,8 @@ IPAddress ip;
 
 WebServer server(80);
 
-#define WIFI_NAME "HOMERSIMPSON"
-#define WIFI_PASSWORD "4D2A1BC2"
+#define WIFI_NAME "WIFI"
+#define WIFI_PASSWORD "PASS"
 
 char xml[2048]; // buffer for XML operations
 char buffer[64]; // buffer to make operations (add stuff to the XML)
