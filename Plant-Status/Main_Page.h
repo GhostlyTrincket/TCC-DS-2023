@@ -1,5 +1,4 @@
 const char MAIN_PAGE[] PROGMEM = R"=====(
-// prepare to see a lot of bullshit here! i funcking hate Javascript
 
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -15,7 +14,7 @@ const char MAIN_PAGE[] PROGMEM = R"=====(
 .paragrafo { display: none }
 
   </style>
-
+<!-prepare to see some bullshit here! i hate Javascript -->
 	<body onload="process()">
 
 		<header>
@@ -31,7 +30,7 @@ const char MAIN_PAGE[] PROGMEM = R"=====(
 
 		<script type="text/javascript">
 			const xml_http = new XMLHttpRequest();
-			const paragrafo = document.getElementsByClassName("paragrafo"); // returns a array of paragraths
+			const paragrafos = document.getElementsByClassName("paragrafo"); // returns a array of paragraths
 
 			xml_http.open("GET", "/xml");
 
@@ -41,17 +40,17 @@ const char MAIN_PAGE[] PROGMEM = R"=====(
 
 				update_request.onload = () => {
 					if(update_request.readyState == 4 && update_request.status == 200) {
-						paragrafo[0].style.display = "block";
-						paragrafo[1].style.display = "block";
+						paragrafos[0].style.display = "block";
+						paragrafos[1].style.display = "block";
 
 						const new_moisture = Number(update_request.responseText);
-						const moisture_percentege = getPercentage(new_moisture);
+						const moisture_percentege = get_percentage(new_moisture);
 
 						document.getElementById("percentage-moisture").innerHTML = moisture_percentege + '%';
 					}
 				}
 
-				update_request.open("PUT", "/update_moisture?value="+Number(xml_response), true));
+				update_request.open("PUT", "/update_moisture?value="+Number(xml_response), true);
 				update_request.send();
 			}
 
@@ -71,17 +70,17 @@ const char MAIN_PAGE[] PROGMEM = R"=====(
 
 				if(response === null) {
 					// just don't do nothing
-				} else {
-				  document.getElementById("moisture-decimal").innerHTML = moisture_value;
 				}
+
+				document.getElementById("moisture-decimal").innerHTML = moisture_value;
 			 }
 
 			function process() {
 				//alter `time_out`'s to a bigger value, if the page get big.
-				const time_out = 200;
+				const time_out = 500;
 
 				if(xml_http.readyState == 0 || xml_http.readyState == 4) {
-					xml_http.open("PUT", "xml", true);
+					xml_http.open("PUT", "/xml", true);
 
 					xml_http.onreadystatechange = respond;
 
