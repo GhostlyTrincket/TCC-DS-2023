@@ -1,4 +1,5 @@
 const char MAIN_PAGE[] PROGMEM = R"=====(
+// prepare to see a lot of bullshit here! i funcking hate Javascript
 
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -9,73 +10,80 @@ const char MAIN_PAGE[] PROGMEM = R"=====(
 		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
 	</head>
 
-	<body>
+  <style>
+
+.paragrafo { display: none }
+
+  </style>
+
+	<body onload="process()">
 
 		<header>
-			<h1>Hello World!</h1>
+			<h1>Plant Status: Dashboard</h1>
 		</header>
 
 		<main>
-			<p>Umidade: <span id="moisture"></span></p>
-			<button onclick="update_moisture()">Clique em mim para iniciar</button>
+			<p class="paragrafo">Umidade da terra (%): <span id="percentage-moisture"></span></p>
+			<p class="paragrafo">Umidade da terra (decimal): <span id="moisture-decimal"></span></p>
+
+			<button onclick="update_moisture()">Analizar umidade</button>
 		</main>
 
 		<script type="text/javascript">
 			const xml_http = new XMLHttpRequest();
+			const paragrafo = document.getElementsByClassName("paragrafo"); // returns a array of paragraths
 
 			xml_http.open("GET", "/xml");
 
 			function update_moisture() {
 				const update_request = new XMLHttpRequest();
-				const xml_response = xml_http.responseXML;
+				const xml_response = xml_http.responseXML.getElementsByTagName("Moisture")[0].innerHTML;
 
-				update_request.onreadystatechange = () => {
+				update_request.onload = () => {
 					if(update_request.readyState == 4 && update_request.status == 200) {
-						const real_time_moisture = Number(update_request.responseText);
+						paragrafo[0].style.display = "block";
+						paragrafo[1].style.display = "block";
 
-						document.getElementById("moisture").innerHTML = real_time_moisture;
+						const new_moisture = Number(update_request.responseText);
+						const moisture_percentege = getPercentage(new_moisture);
+
+						document.getElementById("percentage-moisture").innerHTML = moisture_percentege + '%';
 					}
 				}
 
-				update_request.open("PUT", "/update_moisture?value="+Number(xml_response.getElementsByTagName("Moisture")[0].innerHTML, true))
+				update_request.open("PUT", "/update_moisture?value="+Number(xml_response), true));
 				update_request.send();
 			}
 
-			function respond_to_process() {
-        // const request = new XMLHttpRequest();
+			function get_percentage(moisture_to_parse) {
+				if(moisture_to_parse >= 100) {
+					  return 100;
+				} else if (moisture_to_parse <= 0) {
+					  return 0;
+				}
 
-        // request.open("GET", "/xml");
-
-				const bad_soil = 1230;
-				const good_soil = 2460;
-				const very_good_soil = 3690;
-
-				const xml_response = xml_http.responseXML;
-				const xml_document = Number(xml_response.getElementsByTagName("Moisture"));
-
-				let moisture = xml_document[0].innerHTML;
-
-				console.log(moisture);
-
-        if(moisture <= 0 && moisture <= bad_soil) {
-          console.log("the soil is bad");
-        } else if(moisture > bad_soil && moisture <= good_soil) {
-          console.log("the soil is good");
-        } else if(moisture > good_soil && moisture <= very_good_soil) {
-          console.log("the soil is perfect.");
-        }
-
-        // request.send(null);
+				return moisture_to_parse;
 			}
+
+			function respond() {
+				const response = xml_http.responseXML;
+				const moisture_value = response.getElementsByTagName("Moisture")[0].innerHTML;
+
+				if(response === null) {
+					// just don't do nothing
+				} else {
+				  document.getElementById("moisture-decimal").innerHTML = moisture_value;
+				}
+			 }
 
 			function process() {
 				//alter `time_out`'s to a bigger value, if the page get big.
-				const time_out = 100;
+				const time_out = 200;
 
 				if(xml_http.readyState == 0 || xml_http.readyState == 4) {
-					xml_http.open("PUT", "/xml", true);
+					xml_http.open("PUT", "xml", true);
 
-					xml_http.onreadystatechange = respond_to_process;
+					xml_http.onreadystatechange = respond;
 
 					xml_http.send(null);
 				}
@@ -84,7 +92,6 @@ const char MAIN_PAGE[] PROGMEM = R"=====(
 			}
 
 			xml_http.send();
-
 		</script>
 
 	</body>
