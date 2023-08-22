@@ -1,5 +1,3 @@
-// code obtained from: https://github.com/KrisKasprzak/ESP32_WebPage and https://how2electronics.com/interface-capacitive-soil-moisture-sensor-arduino/
-
 #include <WiFi.h>
 #include <WebServer.h>
 #include "Main_Page.h"
@@ -11,7 +9,7 @@
 #define NETWORK_PASS "plantstatus22"
 //#define PRODUCTION
 
-// vars for creating an access point, in last case
+// variables to create an access point
 IPAddress local_ip(192,168,1,180);
 IPAddress gateway(192,168,2,227);
 IPAddress subnet(255,255,255,0);
@@ -22,10 +20,16 @@ char xml[2048]; // buffer for XML operations
 char buffer[64]; // buffer to make operations (add stuff to the XML)
 
 int soil_moisture = 0;
+//int processed_moisture = 0;
+
+// TODO: FIND VALUES TO INSERT HERE
+//const int air_value = 0;
+//const int water_value = 0;
 
 void setup() {
 	Serial.begin(9600);
 
+// macros to define when testing and when is on production
 #ifndef PRODUCTION
 	init_wifi();
 #endif
@@ -39,8 +43,8 @@ void setup() {
 }
 
 void loop() {
-	//soil_moisture = analogRead(SENSOR_PIN);
-	soil_moisture += 1;
+	soil_moisture = analogRead(SENSOR_PIN);
+	//processed_moisture = map(soil_moisture, air_value, water_value, 0, 100)
 
 	server.handleClient();
 }
@@ -61,6 +65,7 @@ void init_ap() {
 	Serial.println(WiFi.softAPIP());
 }
 
+
 void init_routes() {
 	server.on("/", send_website);
 	server.on("/xml", send_xml);
@@ -72,9 +77,8 @@ void send_website() {
 }
 
 void send_xml() {
-	strcpy(xml, "<?xml version = '1.0'?>\n<Data>\n"); // must keep. xml header.
+	strcpy(xml, "<?xml version = '1.0'?>\n<Data>\n"); // xml header
 
-	// https://www.tutorialspoint.com/c_standard_library/c_function_sprintf.htm
 	sprintf(buffer, "<Moisture>%d</Moisture>", soil_moisture);
 	strcat(xml, buffer);
 
@@ -83,10 +87,11 @@ void send_xml() {
 }
 
 void update_moisture() {
-	String moist_state = server.arg("value"); //creates a arg to be used in the URL
+	String server_arg = server.arg("value"); // creates a arg to be used in the URL
 
 	strcpy(buffer, "");
 	sprintf(buffer, "%d", soil_moisture);
+	//sprintf(buffer, "%d", processed_moisture)
 	sprintf(buffer, buffer);
 
 	server.send(200, "text/plain", buffer);
