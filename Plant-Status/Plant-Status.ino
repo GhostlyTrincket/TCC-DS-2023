@@ -17,14 +17,14 @@ IPAddress subnet(255,255,255,0);
 WebServer server(80);
 
 char xml[2048]; // buffer for XML operations
-char buffer[64]; // buffer to make operations (add stuff to the XML)
+char buffer[64]; // buffer to make operations
 
 int soil_moisture = 0;
-//int processed_moisture = 0;
+int processed_moisture = 0;
 
-// TODO: FIND VALUES TO INSERT HERE
-//const int air_value = 0;
-//const int water_value = 0;
+// Theses values are for calibrating the sensor. 
+const int air_value = 2753;
+const int water_value = 3111;
 
 void setup() {
 	Serial.begin(9600);
@@ -37,14 +37,13 @@ void setup() {
 #ifdef PRODUCTION
 	init_ap();
 #endif
-
 	init_routes();
 	server.begin();
 }
 
 void loop() {
 	soil_moisture = analogRead(SENSOR_PIN);
-	//processed_moisture = map(soil_moisture, air_value, water_value, 0, 100)
+	processed_moisture = map(soil_moisture, air_value, water_value, 0, 100);
 
 	server.handleClient();
 }
@@ -79,7 +78,7 @@ void send_website() {
 void send_xml() {
 	strcpy(xml, "<?xml version = '1.0'?>\n<Data>\n"); // xml header
 
-	sprintf(buffer, "<Moisture>%d</Moisture>", soil_moisture);
+	sprintf(buffer, "<Moisture>%d</Moisture>", processed_moisture);
 	strcat(xml, buffer);
 
 	strcat(xml, "</Data>\n");
@@ -90,8 +89,7 @@ void update_moisture() {
 	String server_arg = server.arg("value"); // creates a arg to be used in the URL
 
 	strcpy(buffer, "");
-	sprintf(buffer, "%d", soil_moisture);
-	//sprintf(buffer, "%d", processed_moisture)
+	sprintf(buffer, "%d", processed_moisture);
 	sprintf(buffer, buffer);
 
 	server.send(200, "text/plain", buffer);
