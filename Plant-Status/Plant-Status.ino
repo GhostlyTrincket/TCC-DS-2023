@@ -22,7 +22,7 @@ char buffer[64]; // buffer to make operations
 int soil_moisture = 0;
 int processed_moisture = 0;
 
-// Theses values are for calibrating the sensor. 
+// Theses values are for calibrating the sensor.
 const int air_value = 2753;
 const int water_value = 3111;
 

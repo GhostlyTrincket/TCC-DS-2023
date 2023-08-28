@@ -69,7 +69,7 @@ const char MAIN_PAGE[] PROGMEM = R"=====(
 				const moisture_value = response.getElementsByTagName("Moisture")[0].innerHTML;
 
 				if(response === null) {
-					// just don't do nothing
+					console.log(response);
 				}
 
 				document.getElementById("moisture-decimal").innerHTML = moisture_value;
