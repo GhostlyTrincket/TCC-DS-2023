@@ -42,13 +42,21 @@ void setup() {
 }
 
 void loop() {
-	soil_moisture = analogRead(SENSOR_PIN);
-	processed_moisture = map(soil_moisture, air_value, water_value, 0, 100);
+//	soil_moisture = analogRead(SENSOR_PIN);
+//	processed_moisture = map(soil_moisture, air_value, water_value, 0, 100);
+
+   soil_moisture += 1;
+
+  if(soil_moisture >= 100)
+    soil_moisture = 0;
 
 	server.handleClient();
 }
 
 void init_wifi() {
+	if(!WiFi.config(local_ip, gateway, subnet))
+		Serial.println("Failure to configurate STA device.");
+
 	WiFi.begin(WIFI_NAME, WIFI_PASSWORD);
 
 	while(WiFi.status() != WL_CONNECTED) {} // while it's not connected to wifi, try to connect to it.
@@ -78,7 +86,8 @@ void send_website() {
 void send_xml() {
 	strcpy(xml, "<?xml version = '1.0'?>\n<Data>\n"); // xml header
 
-	sprintf(buffer, "<Moisture>%d</Moisture>", processed_moisture);
+	sprintf(buffer, "<Moisture>%d</Moisture>", soil_moisture);
+	// sprintf(buffer, "<Moisture>%d</Moisture>", processed_moisture);
 	strcat(xml, buffer);
 
 	strcat(xml, "</Data>\n");
@@ -89,7 +98,8 @@ void update_moisture() {
 	String server_arg = server.arg("value"); // creates a arg to be used in the URL
 
 	strcpy(buffer, "");
-	sprintf(buffer, "%d", processed_moisture);
+	sprintf(buffer, "%d", soil_moisture);
+	// sprintf(buffer, "%d", processed_moisture);
 	sprintf(buffer, buffer);
 
 	server.send(200, "text/plain", buffer);
