@@ -10,12 +10,14 @@
 //#define PRODUCTION
 
 // variables to create an access point
-IPAddress local_ip(192,168,1,112);IPAddress gateway(192,168,2,227);IPAddress subnet(255,255,255,0);
+IPAddress local_ip(192,168,1,112);
+IPAddress gateway(192,168,2,227);
+IPAddress subnet(255,255,255,0);
 
 WebServer server(80);
 
 char xml[2048]; // buffer for XML operationschar
-buffer[64]; // buffer to make operations
+char buffer[64]; // buffer to make operations
 
 int soil_moisture = 0;
 //int processed_moisture = 0;
@@ -40,8 +42,8 @@ void setup() {
 }
 
 void loop() {
-	//	soil_moisture = analogRead(SENSOR_PIN);
-	//	processed_moisture = map(soil_moisture, air_value, water_value, 0, 100);
+	// soil_moisture = analogRead(SENSOR_PIN);
+	// processed_moisture = map(soil_moisture, air_value, water_value, 0, 100);
 	soil_moisture += 1;
 
 	if(soil_moisture >= 100)
@@ -51,6 +53,7 @@ void loop() {
 }
 
 void init_wifi() {
+	// if is not possible to configure an ip address
 	if(!WiFi.config(local_ip, gateway, subnet))
 		Serial.println("Failure to configurate STA device.");
 	
