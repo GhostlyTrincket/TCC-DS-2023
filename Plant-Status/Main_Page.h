@@ -24,8 +24,6 @@ const char MAIN_PAGE[] PROGMEM = R"=====(
 		<main>
 			<p class="paragrafo">Umidade da terra (%): <span id="percentage-moisture"></span></p>
 			<p class="paragrafo">Umidade da terra (decimal): <span id="moisture-decimal"></span></p>
-
-			<button onclick="update_moisture()">Analizar umidade</button>
 		</main>
 
 		<script type="text/javascript">
@@ -33,6 +31,8 @@ const char MAIN_PAGE[] PROGMEM = R"=====(
 			const paragrafos = document.getElementsByClassName("paragrafo"); // returns a array of paragraths
 
 			xml_http.open("GET", "/xml");
+
+			setInterval(update_moisture, 500);
 
 			function update_moisture() {
 				const update_request = new XMLHttpRequest();
@@ -68,17 +68,10 @@ const char MAIN_PAGE[] PROGMEM = R"=====(
 				const response = xml_http.responseXML;
 				const moisture_value = response.getElementsByTagName("Moisture")[0].innerHTML;
 
-				if(response === null) {
-					console.log(response);
-				}
-
 				document.getElementById("moisture-decimal").innerHTML = moisture_value;
-			 }
+			}
 
 			function process() {
-				//alter `time_out`'s to a bigger value, if the page get big.
-				const time_out = 500;
-
 				if(xml_http.readyState == 0 || xml_http.readyState == 4) {
 					xml_http.open("PUT", "/xml", true);
 
@@ -87,7 +80,7 @@ const char MAIN_PAGE[] PROGMEM = R"=====(
 					xml_http.send(null);
 				}
 
-				setTimeout("process()", time_out);
+				setTimeout("process()", 500);
 			}
 
 			xml_http.send();
@@ -95,5 +88,4 @@ const char MAIN_PAGE[] PROGMEM = R"=====(
 
 	</body>
 </html>
-
 )=====";

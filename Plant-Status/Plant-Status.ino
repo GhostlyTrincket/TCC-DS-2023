@@ -42,13 +42,13 @@ void setup() {
 }
 
 void loop() {
-	// soil_moisture = analogRead(SENSOR_PIN);
-	// processed_moisture = map(soil_moisture, air_value, water_value, 0, 100);
+// soil_moisture = analogRead(SENSOR_PIN);
+// processed_moisture = map(soil_moisture, air_value, water_value, 0, 100);
 	soil_moisture += 1;
 
-	if(soil_moisture >= 100)
-		soil_moisture = 0;
-	
+  if(soil_moisture >= 100)
+    soil_moisture = 0;
+
 	server.handleClient();
 }
 
@@ -85,9 +85,12 @@ void send_website() {
 void send_xml() {
 	strcpy(xml, "<?xml version = '1.0'?>\n<Data>\n"); // xml header
 
-	sprintf(buffer, "<Moisture>%d</Moisture>", soil_moisture);
-	//	sprintf(buffer, "<Moisture>%d</Moisture>", processed_moisture);
+	sprintf(buffer, "<Moisture>%d</Moisture>", processed_moisture);
 	strcat(xml, buffer);strcat(xml, "</Data>\n");
+	strcat(xml, buffer);
+
+	strcat(xml, "</Data>\n");
+
 	server.send(200, "text/xml", xml);
 }
 
@@ -95,7 +98,7 @@ void update_moisture() {
 	String server_arg = server.arg("value"); // argument to be used in the URL
 
 	strcpy(buffer, "");
-	sprintf(buffer, "%d", soil_moisture);
+	sprintf(buffer, "%d", processed_moisture);
 	sprintf(buffer, buffer);
 
 	server.send(200, "text/plain", buffer);
