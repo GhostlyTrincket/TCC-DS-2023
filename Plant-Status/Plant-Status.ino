@@ -20,7 +20,7 @@ char xml[2048]; // buffer for XML operationschar
 char buffer[64]; // buffer to make operations
 
 int soil_moisture = 0;
-//int processed_moisture = 0;
+int processed_moisture = 0;
 
 // values to calibrate the sensor
 const int air_value = 2753;
@@ -29,25 +29,21 @@ const int water_value = 3111;
 void setup() {
 	Serial.begin(9600);
 
-// macros to define when testing and when is on production
+// macro to test if we are in production
 #ifndef PRODUCTION
 	init_wifi();
-#endif
-#ifdef PRODUCTION
+#else
 	init_ap();
 #endif
+
 	init_routes();
 
 	server.begin();
 }
 
 void loop() {
-// soil_moisture = analogRead(SENSOR_PIN);
-// processed_moisture = map(soil_moisture, air_value, water_value, 0, 100);
-	soil_moisture += 1;
-
-  if(soil_moisture >= 100)
-    soil_moisture = 0;
+	soil_moisture = analogRead(SENSOR_PIN);
+	processed_moisture = map(soil_moisture, air_value, water_value, 0, 100);
 
 	server.handleClient();
 }
@@ -86,7 +82,6 @@ void send_xml() {
 	strcpy(xml, "<?xml version = '1.0'?>\n<Data>\n"); // xml header
 
 	sprintf(buffer, "<Moisture>%d</Moisture>", processed_moisture);
-	strcat(xml, buffer);strcat(xml, "</Data>\n");
 	strcat(xml, buffer);
 
 	strcat(xml, "</Data>\n");
