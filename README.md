@@ -5,8 +5,8 @@ O meu nome é João Paulo Ferrari Sant'Ana. Atualmente estudo na escola etec *he
 ## Membros do Projeto:
 
 1. Estevan Merli Antonio (@Estevan155)
-2. José
-3. Adalberto
+2. José Nivaldo Moraes Vicente
+3. Adalberto Monteiro de Oliveira Junior
 4. João Paulo Ferrari Sant'Ana
 
 My name is João Paulo Ferrari Sant'Ana. Currently studying at *helcy moreira martins aguiar*, this is my final paper, which the creator of the project is **@Estevan155**.
@@ -14,6 +14,6 @@ My name is João Paulo Ferrari Sant'Ana. Currently studying at *helcy moreira ma
 ## Group Members
 
 1. Estevan Merli Antonio (@Estevan155)
-2. José
-3. Adalberto
+2. José Nivaldo Moraes Vicente
+3. Adalberto Monteiro de Oliveira Junior
 4. João Paulo Ferrari Sant'Ana
