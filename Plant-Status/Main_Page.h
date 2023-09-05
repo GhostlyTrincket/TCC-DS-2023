@@ -8,13 +8,7 @@ const char MAIN_PAGE[] PROGMEM = R"=====(
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
 	</head>
-
-  <style>
-
-.paragrafo { display: none }
-
-  </style>
-<!-prepare to see some bullshit here! i hate Javascript -->
+<!--prepare to see some bullshit here! i hate Javascript-->
 	<body onload="process()">
 
 		<header>
@@ -22,17 +16,17 @@ const char MAIN_PAGE[] PROGMEM = R"=====(
 		</header>
 
 		<main>
-			<p class="paragrafo">Umidade da terra (%): <span id="percentage-moisture"></span></p>
-			<p class="paragrafo">Umidade da terra (decimal): <span id="moisture-decimal"></span></p>
+			<p>Umidade da terra (%): <span id="percentage-moisture"></span></p>
+			<p>Umidade da terra (decimal): <span id="moisture-decimal"></span></p>
 		</main>
 
 		<script type="text/javascript">
 			const xml_http = new XMLHttpRequest();
-			const paragrafos = document.getElementsByClassName("paragrafo"); // returns a array of paragraths
+			const time_delay = 500;
 
 			xml_http.open("GET", "/xml");
 
-			setInterval(update_moisture, 500);
+			setInterval(update_moisture, time_delay);
 
 			function update_moisture() {
 				const update_request = new XMLHttpRequest();
@@ -40,9 +34,6 @@ const char MAIN_PAGE[] PROGMEM = R"=====(
 
 				update_request.onload = () => {
 					if(update_request.readyState == 4 && update_request.status == 200) {
-						paragrafos[0].style.display = "block";
-						paragrafos[1].style.display = "block";
-
 						const new_moisture = Number(update_request.responseText);
 						const moisture_percentege = get_percentage(new_moisture);
 
@@ -80,12 +71,11 @@ const char MAIN_PAGE[] PROGMEM = R"=====(
 					xml_http.send(null);
 				}
 
-				setTimeout("process()", 500);
+				setTimeout("process()", time_delay);
 			}
 
 			xml_http.send();
 		</script>
-
 	</body>
 </html>
 )=====";
