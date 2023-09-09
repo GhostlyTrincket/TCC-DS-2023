@@ -1,5 +1,6 @@
 #include <WiFi.h>
 #include <WebServer.h>
+#include <ESPmDNS.h>
 #include "Main_Page.h"
 
 #define SENSOR_PIN 36
