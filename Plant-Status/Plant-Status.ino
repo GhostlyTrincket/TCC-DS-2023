@@ -8,7 +8,7 @@
 #define WIFI_PASSWORD "4D2A1BC2"
 
 WebServer server(80);
-//#include <HTTPClient.h>
+//HTTPClient http; // to make POST request from esp32
 
 char xml[2048]; // buffer for XML operationschar
 char buffer[64]; // buffer to make operations
