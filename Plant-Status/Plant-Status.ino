@@ -41,16 +41,16 @@ void loop() {
 
 //	server.handleClient();
 	http.begin(host_name + path);
-  http.addHeader("Content-Type", "application/x-www-form-urlencoded");
+	http.addHeader("Content-Type", "application/x-www-form-urlencoded");
 
-  int status_code = http.POST(query_string);
+	int status_code = http.POST(query_string);
 
-  delay(1500);
+	delay(1500);
 
-  Serial.println(status_code);
-  Serial.println(http.getString());
+	Serial.println(status_code);
+	Serial.println(http.getString());
 
-  http.end();
+	http.end();
 }
 
 void init_wifi() {
