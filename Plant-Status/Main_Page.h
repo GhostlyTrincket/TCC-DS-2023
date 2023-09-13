@@ -8,7 +8,6 @@ const char MAIN_PAGE[] PROGMEM = R"=====(
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
 	</head>
-<!--prepare to see some bullshit here! i hate Javascript-->
 	<body onload="process()">
 
 		<header>
@@ -23,6 +22,7 @@ const char MAIN_PAGE[] PROGMEM = R"=====(
 		<script type="text/javascript">
 			const xml_http = new XMLHttpRequest();
 			const time_delay = 500;
+			const time_out = time_delay / 2;
 
 			xml_http.open("GET", "/xml");
 
@@ -71,7 +71,7 @@ const char MAIN_PAGE[] PROGMEM = R"=====(
 					xml_http.send(null);
 				}
 
-				setTimeout("process()", time_delay);
+				setTimeout("process()", time_out);
 			}
 
 			xml_http.send();

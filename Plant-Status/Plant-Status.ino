@@ -4,8 +4,8 @@
 #include "Main_Page.h"
 
 #define SENSOR_PIN 36
-#define WIFI_NAME "HOMERSIMPSON"
-#define WIFI_PASSWORD "4D2A1BC2"
+#define WIFI_NAME "plant-status"
+#define WIFI_PASSWORD "status22"
 
 WebServer server(80);
 //HTTPClient http; // to make POST request from esp32
@@ -19,6 +19,12 @@ int processed_moisture = 0;
 // values to calibrate the sensor
 const int air_value = 2753;
 const int water_value = 3111;
+
+// path and parameters to send to MySQL Database
+// since there is no operator+ to const char*, Strings must do
+// const String path_name = "http://192.168.1.109/"
+// const String script_name = "send_moisture.php";
+// const String load = "moisture="
 
 void setup() {
 	Serial.begin(9600);
