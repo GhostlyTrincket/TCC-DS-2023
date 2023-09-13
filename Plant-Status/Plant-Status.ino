@@ -1,14 +1,14 @@
 #include <WiFi.h>
 #include <WebServer.h>
-//#include <HTTPClient.h>
+#include <HTTPClient.h>
 #include "Main_Page.h"
 
 #define SENSOR_PIN 36
-#define WIFI_NAME "plant-status"
-#define WIFI_PASSWORD "status22"
+#define WIFI_NAME "HOMERSIMPSON"
+#define WIFI_PASSWORD "4D2A1BC2"
 
 WebServer server(80);
-//HTTPClient http; // to make POST request from esp32
+HTTPClient http;
 
 char xml[2048]; // buffer for XML operationschar
 char buffer[64]; // buffer to make operations
@@ -22,9 +22,9 @@ const int water_value = 3111;
 
 // path and parameters to send to MySQL Database
 // since there is no operator+ to const char*, Strings must do
-// const String path_name = "http://192.168.1.109/"
-// const String script_name = "send_moisture.php";
-// const String load = "moisture="
+const String host_name = "http://192.168.1.109/"; // must be a server
+const String path = "plant-status/enviar.php"; // location of the script that will send to MySQL "query_string"
+String query_string = "umidade=413";
 
 void setup() {
 	Serial.begin(9600);
@@ -36,10 +36,21 @@ void setup() {
 }
 
 void loop() {
-	soil_moisture = analogRead(SENSOR_PIN);
-	processed_moisture = map(soil_moisture, air_value, water_value, 0, 100);
+//	soil_moisture = analogRead(SENSOR_PIN);
+//	processed_moisture = map(soil_moisture, air_value, water_value, 0, 100);
 
-	server.handleClient();
+//	server.handleClient();
+	http.begin(host_name + path);
+  http.addHeader("Content-Type", "application/x-www-form-urlencoded");
+
+  int status_code = http.POST(query_string);
+
+  delay(1500);
+
+  Serial.println(status_code);
+  Serial.println(http.getString());
+
+  http.end();
 }
 
 void init_wifi() {
