@@ -1,20 +1,14 @@
 #include <WiFi.h>
 #include <WebServer.h>
+#include <HTTPClient.h>
 #include "Main_Page.h"
 
 #define SENSOR_PIN 36
 #define WIFI_NAME "HOMERSIMPSON"
 #define WIFI_PASSWORD "4D2A1BC2"
-#define NETWORK_NAME "PlantStatusChecker"
-#define NETWORK_PASS "plantstatus22"
-//#define PRODUCTION
-
-// variables to create an access point
-IPAddress local_ip(192,168,1,112);
-IPAddress gateway(192,168,2,227);
-IPAddress subnet(255,255,255,0);
 
 WebServer server(80);
+HTTPClient http;
 
 char xml[2048]; // buffer for XML operationschar
 char buffer[64]; // buffer to make operations
@@ -26,46 +20,45 @@ int processed_moisture = 0;
 const int air_value = 2753;
 const int water_value = 3111;
 
+// variables to use to send information using HTTP
+const String host_name = "http://192.168.1.109/"; // must be a server
+const String path = "plant-status/enviar.php"; // location of the script that will send to MySQL "query_string"
+String query_string = "umidade=413";
+
 void setup() {
 	Serial.begin(9600);
 
-// macro to test if we are in production
-#ifndef PRODUCTION
 	init_wifi();
-#else
-	init_ap();
-#endif
-
 	init_routes();
 
 	server.begin();
 }
 
 void loop() {
-	soil_moisture = analogRead(SENSOR_PIN);
-	processed_moisture = map(soil_moisture, air_value, water_value, 0, 100);
+//	soil_moisture = analogRead(SENSOR_PIN);
+//	processed_moisture = map(soil_moisture, air_value, water_value, 0, 100);
 
-	server.handleClient();
+//	server.handleClient();
+	http.begin(host_name + path);
+  http.addHeader("Content-Type", "application/x-www-form-urlencoded");
+
+  int status_code = http.POST(query_string);
+
+  delay(1500);
+
+  Serial.println(status_code);
+  Serial.println(http.getString());
+
+  http.end();
 }
 
 void init_wifi() {
-	// if is not possible to configure an ip address
-	if(!WiFi.config(local_ip, gateway, subnet))
-		Serial.println("Failure to configurate STA device.");
-	
 	WiFi.begin(WIFI_NAME, WIFI_PASSWORD);
 
 	while(WiFi.status() != WL_CONNECTED) {} // while it's not connected to wifi, try to connect to it.
 
 	Serial.print("\nGo to: ");
 	Serial.println(WiFi.localIP());
-}
-
-void init_ap() {
-	WiFi.softAP(NETWORK_NAME, NETWORK_PASS);
-	WiFi.softAPConfig(local_ip, gateway, subnet);
-
-	Serial.println(WiFi.softAPIP());
 }
 
 void init_routes() {
