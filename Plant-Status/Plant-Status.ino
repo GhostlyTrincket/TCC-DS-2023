@@ -30,6 +30,7 @@ void setup() {
 
 	init_wifi();
 	init_routes();
+	init_http();
 
 	server.begin();
 }
@@ -39,15 +40,9 @@ void loop() {
 //	processed_moisture = map(soil_moisture, air_value, water_value, 0, 100);
 
 //	server.handleClient();
-	http.begin(host_name + path);
-	http.addHeader("Content-Type", "application/x-www-form-urlencoded");
-
-	int status_code = http.POST(query_string);
+	http.POST(query_string);
 
 	delay(1500);
-
-	Serial.println(status_code);
-	Serial.println(http.getString());
 
 	http.end();
 }
@@ -65,6 +60,11 @@ void init_routes() {
 	server.on("/", send_website);
 	server.on("/xml", send_xml);
 	server.on("/update_moisture", update_moisture);
+}
+
+void init_http() {
+	http.begin(host_name + path);
+	http.addHeader("Content-Type", "application/x-www-form-urlencoded");
 }
 
 void send_website() {
