@@ -1,6 +1,7 @@
 #include <WiFi.h>
 #include <WebServer.h>
 #include <HTTPClient.h>
+#include <ESPmDNS.h>
 #include "Main_Page.h"
 
 #define SENSOR_PIN 36
@@ -30,6 +31,7 @@ void setup() {
 	Serial.begin(9600);
 
 	init_wifi();
+	init_mdns();
 	init_routes();
 	init_http_conn();
 
@@ -56,9 +58,6 @@ void init_wifi() {
 	WiFi.begin(WIFI_NAME, WIFI_PASSWORD);
 
 	while(WiFi.status() != WL_CONNECTED) {} // while it's not connected to wifi, try to connect to it.
-
-	Serial.print("\nGo to: ");
-	Serial.println(WiFi.localIP());
 }
 
 void init_routes() {
@@ -70,6 +69,12 @@ void init_routes() {
 void init_http_conn() {
 	http.begin(server_path + script_path);
 	http.addHeader("Content-Type", "application/x-www-form-urlencoded");
+}
+
+void init_mdns() {
+  while(!MDNS.begin("plant")) {
+      Serial.println("Error starting mDNS");
+   }
 }
 
 void send_website() {
