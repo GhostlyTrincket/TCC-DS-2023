@@ -31,6 +31,7 @@ void setup() {
 
 	init_wifi();
 	init_routes();
+	init_http();
 
 	server.begin();
 }
@@ -40,17 +41,16 @@ void loop() {
 //	processed_moisture = map(soil_moisture, air_value, water_value, 0, 100);
 
 //	server.handleClient();
-	http.begin(host_name + path);
-	http.addHeader("Content-Type", "application/x-www-form-urlencoded");
-
-	int status_code = http.POST(query_string);
-
-	delay(1500);
-
-	Serial.println(status_code);
-	Serial.println(http.getString());
-
-	http.end();
+  http.begin("http://192.168.1.109/plant-status/enviar.php");               //change the ip to your computer ip address
+  http.addHeader("Content-Type", "application/x-www-form-urlencoded");      //Specify content-type header
+ 
+  int httpCode = http.POST(query_string);   //Send the request
+  String payload = http.getString();    //Get the response payload
+ 
+  Serial.println(httpCode);   //Print HTTP return code
+  Serial.println(payload);    //Print request response payload
+ 
+  http.end();  //Close connection
 }
 
 void init_wifi() {
@@ -66,6 +66,11 @@ void init_routes() {
 	server.on("/", send_website);
 	server.on("/xml", send_xml);
 	server.on("/update_moisture", update_moisture);
+}
+
+void init_http() {
+	http.begin(host_name + path);
+	http.addHeader("Content-Type", "application/x-www-form-urlencoded");
 }
 
 void send_website() {
