@@ -21,9 +21,9 @@ const int air_value = 2753;
 const int water_value = 3111;
 
 // path and parameters to send to MySQL Database
-// concatenate char* that I know of, so.. strings must do
-const String host_name = "http://192.168.1.109/";	// must be a server
-const String path = "plant-status/enviar.php";		// location of the script that will send to MySQL "query_string"
+// there's no way to concatenate char* that I know of, so.. strings must do
+const String server_path = "http://192.168.1.109/";			// must be a server
+const String script_path = "plant-status/enviar.php";		// location of the script that will send to MySQL "query_string"
 String query_string = "umidade=413";
 
 void setup() {
@@ -31,7 +31,7 @@ void setup() {
 
 	init_wifi();
 	init_routes();
-	init_http();
+	init_http_conn();
 
 	server.begin();
 }
@@ -42,13 +42,12 @@ void loop() {
 
 //	server.handleClient();
  
-	int httpCode = http.POST(query_string);	// Send the request
-	String payload = http.getString();	// Get payload (response)
+	http.POST(query_string);	// Send the request
 
 	delay(1500);
 
-	Serial.println(httpCode);
-	Serial.println(payload);
+	// Serial.println(http.POST(query_string); // DEBUG
+	// Serial.println(http.getString()); // DEBUG
 
 	http.end();  //Close connection
 }
@@ -68,8 +67,8 @@ void init_routes() {
 	server.on("/update_moisture", update_moisture);
 }
 
-void init_http() {
-	http.begin(host_name + path);
+void init_http_conn() {
+	http.begin(server_path + script_path);
 	http.addHeader("Content-Type", "application/x-www-form-urlencoded");
 }
 
