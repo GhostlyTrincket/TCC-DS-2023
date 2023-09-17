@@ -6,3 +6,5 @@
 	- https://www.tutorialspoint.com/c_standard_library/c_function_sprintf.htm 
 4. Arduino documentation of the `map` function
 	- https://www.arduino.cc/reference/en/language/functions/math/map
+5. Sending sensor data to localhost using IoT development board esp8266-12
+	- https://morioh.com/a/194e25bbbc8d/sending-sensor-data-to-localhost-using-iot-development-board-esp8266-12
