@@ -21,9 +21,9 @@ const int air_value = 2753;
 const int water_value = 3111;
 
 // path and parameters to send to MySQL Database
-// since there is no operator+ to const char*, Strings must do
-const String host_name = "http://192.168.1.109/"; // must be a server
-const String path = "plant-status/enviar.php"; // location of the script that will send to MySQL "query_string"
+// concatenate char* that I know of, so.. strings must do
+const String host_name = "http://192.168.1.109/";	// must be a server
+const String path = "plant-status/enviar.php";		// location of the script that will send to MySQL "query_string"
 String query_string = "umidade=413";
 
 void setup() {
@@ -41,16 +41,16 @@ void loop() {
 //	processed_moisture = map(soil_moisture, air_value, water_value, 0, 100);
 
 //	server.handleClient();
-  http.begin("http://192.168.1.109/plant-status/enviar.php");               //change the ip to your computer ip address
-  http.addHeader("Content-Type", "application/x-www-form-urlencoded");      //Specify content-type header
  
-  int httpCode = http.POST(query_string);   //Send the request
-  String payload = http.getString();    //Get the response payload
- 
-  Serial.println(httpCode);   //Print HTTP return code
-  Serial.println(payload);    //Print request response payload
- 
-  http.end();  //Close connection
+	int httpCode = http.POST(query_string);	// Send the request
+	String payload = http.getString();	// Get payload (response)
+
+	delay(1500);
+
+	Serial.println(httpCode);
+	Serial.println(payload);
+
+	http.end();  //Close connection
 }
 
 void init_wifi() {
