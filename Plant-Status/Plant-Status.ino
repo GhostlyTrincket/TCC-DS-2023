@@ -11,7 +11,7 @@
 WebServer server(80);
 HTTPClient http;
 
-char xml[2048]; // buffer for XML operationschar
+char xml[1024]; // buffer for XML operations
 char buffer[64]; // buffer to make operations
 
 int soil_moisture = 0;
@@ -23,9 +23,8 @@ const int water_value = 3111;
 
 // path and parameters to send to MySQL Database
 // there's no way to concatenate char* that I know of, so.. strings must do
-const String server_path = "http://192.168.1.109/";			// must be a server
-const String script_path = "plant-status/enviar.php";		// location of the script that will send to MySQL "query_string"
-String query_string = "umidade=413";
+const String server_path = "http://192.168.1.109/";		// must be a server
+const String script_path = "plant-status/enviar.php";	// location of the script that will send to MySQL "query_string"
 
 void setup() {
 	Serial.begin(9600);
@@ -33,71 +32,67 @@ void setup() {
 	init_wifi();
 	init_mdns();
 	init_routes();
-	init_http_conn();
 
 	server.begin();
 }
 
 void loop() {
-//	soil_moisture = analogRead(SENSOR_PIN);
-//	processed_moisture = map(soil_moisture, air_value, water_value, 0, 100);
+//  soil_moisture = analogread(sensor_pin);
+//  processed_moisture = map(soil_moisture, air_value, water_value, 0, 100);
 
-//	server.handleClient();
+	http.begin(server_path + script_path);
+	http.addheader("content-type", "application/x-www-form-urlencoded");
+
+    http.post("umidade="+string(soil_moisture)); // sends the moisture
+	// http.post("umidade="+string(processed_moisture)); // sends the moisture
+
+//  Serial.println(http.getstring());    //print response, debug
  
-	http.POST(query_string);	// Send the request
+    server.handleclient();
+    http.end();  // closes connection
 
 	delay(1500);
-
-	// Serial.println(http.POST(query_string); // DEBUG
-	// Serial.println(http.getString()); // DEBUG
-
-	http.end();  //Close connection
 }
 
 void init_wifi() {
-	WiFi.begin(WIFI_NAME, WIFI_PASSWORD);
+  WiFi.begin(WIFI_NAME, WIFI_PASSWORD);
 
-	while(WiFi.status() != WL_CONNECTED) {} // while it's not connected to wifi, try to connect to it.
+  while(WiFi.status() != WL_CONNECTED) {} // while it's not connected to wifi, try to connect to it.
 }
 
 void init_routes() {
-	server.on("/", send_website);
-	server.on("/xml", send_xml);
-	server.on("/update_moisture", update_moisture);
-}
-
-void init_http_conn() {
-	http.begin(server_path + script_path);
-	http.addHeader("Content-Type", "application/x-www-form-urlencoded");
+  server.on("/", send_website);
+  server.on("/xml", send_xml);
+  server.on("/update_moisture", update_moisture);
 }
 
 void init_mdns() {
-  while(!MDNS.begin("plant")) {
+  if(!MDNS.begin("plant")) {
       Serial.println("Error starting mDNS");
    }
 }
 
 void send_website() {
-	server.send(200, "text/html", MAIN_PAGE);
+  server.send(200, "text/html", MAIN_PAGE);
 }
 
 void send_xml() {
-	strcpy(xml, "<?xml version = '1.0'?>\n<Data>\n"); // xml header
+  strcpy(xml, "<?xml version = '1.0'?>\n<Data>\n"); // xml header
 
-	sprintf(buffer, "<Moisture>%d</Moisture>", processed_moisture);
-	strcat(xml, buffer);
+  sprintf(buffer, "<Moisture>%d</Moisture>", processed_moisture);
+  strcat(xml, buffer);
 
-	strcat(xml, "</Data>\n");
+  strcat(xml, "</Data>\n");
 
-	server.send(200, "text/xml", xml);
+  server.send(200, "text/xml", xml);
 }
 
 void update_moisture() {
-	String server_arg = server.arg("value"); // argument to be used in the URL
+  String server_arg = server.arg("value"); // argument to be used in the URL
 
-	strcpy(buffer, "");
-	sprintf(buffer, "%d", processed_moisture);
-	sprintf(buffer, buffer);
+  strcpy(buffer, "");
+  sprintf(buffer, "%d", processed_moisture);
+  sprintf(buffer, buffer);
 
-	server.send(200, "text/plain", buffer);
+  server.send(200, "text/plain", buffer);
 }
