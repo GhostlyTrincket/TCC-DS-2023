@@ -44,10 +44,10 @@ void loop() {
 	http.addheader("content-type", "application/x-www-form-urlencoded");
 
     http.post("umidade="+string(soil_moisture)); // sends the moisture
-	// http.post("umidade="+string(processed_moisture)); // sends the moisture
+	//http.post("umidade="+string(processed_moisture)); // sends the moisture
 
-//  Serial.println(http.getstring());    //print response, debug
- 
+	//Serial.println(http.getstring());    //print response, debug
+
     server.handleclient();
     http.end();  // closes connection
 
@@ -55,44 +55,44 @@ void loop() {
 }
 
 void init_wifi() {
-  WiFi.begin(WIFI_NAME, WIFI_PASSWORD);
+	WiFi.begin(WIFI_NAME, WIFI_PASSWORD);
 
-  while(WiFi.status() != WL_CONNECTED) {} // while it's not connected to wifi, try to connect to it.
+	while(WiFi.status() != WL_CONNECTED) {} // while it's not connected to wifi, try to connect to it.
 }
 
 void init_routes() {
-  server.on("/", send_website);
-  server.on("/xml", send_xml);
-  server.on("/update_moisture", update_moisture);
+	server.on("/", send_website);
+	server.on("/xml", send_xml);
+	server.on("/update_moisture", update_moisture);
 }
 
 void init_mdns() {
-  if(!MDNS.begin("plant")) {
-      Serial.println("Error starting mDNS");
-   }
+	if(!MDNS.begin("plant")) {
+		Serial.println("Error starting mDNS");
+	}
 }
 
 void send_website() {
-  server.send(200, "text/html", MAIN_PAGE);
+	server.send(200, "text/html", MAIN_PAGE);
 }
 
 void send_xml() {
-  strcpy(xml, "<?xml version = '1.0'?>\n<Data>\n"); // xml header
+	strcpy(xml, "<?xml version = '1.0'?>\n<Data>\n"); // xml header
 
-  sprintf(buffer, "<Moisture>%d</Moisture>", processed_moisture);
-  strcat(xml, buffer);
+	sprintf(buffer, "<Moisture>%d</Moisture>", processed_moisture);
+	strcat(xml, buffer);
 
-  strcat(xml, "</Data>\n");
+	strcat(xml, "</Data>\n");
 
-  server.send(200, "text/xml", xml);
+	server.send(200, "text/xml", xml);
 }
 
 void update_moisture() {
-  String server_arg = server.arg("value"); // argument to be used in the URL
+	String server_arg = server.arg("value"); // argument to be used in the URL
 
-  strcpy(buffer, "");
-  sprintf(buffer, "%d", processed_moisture);
-  sprintf(buffer, buffer);
+	strcpy(buffer, "");
+	sprintf(buffer, "%d", processed_moisture);
+	sprintf(buffer, buffer);
 
-  server.send(200, "text/plain", buffer);
+	server.send(200, "text/plain", buffer);
 }
