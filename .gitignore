@@ -1,2 +1,2 @@
-#ignora tudo que é um arquivo de texto.
-*.txt
+libraries/
+Plant-Status/teste
