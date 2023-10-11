@@ -21,7 +21,7 @@ const char MAIN_PAGE[] PROGMEM = R"=====(
 
 		<script type="text/javascript">
 			const xml_http = new XMLHttpRequest();
-			const time_delay = 500;
+			const time_delay = 1000;
 			const time_out = time_delay / 2;
 
 			xml_http.open("GET", "/xml");
@@ -34,25 +34,14 @@ const char MAIN_PAGE[] PROGMEM = R"=====(
 
 				update_request.onload = () => {
 					if(update_request.readyState == 4 && update_request.status == 200) {
-						const new_moisture = Number(update_request.responseText);
-						const moisture_percentege = get_percentage(new_moisture);
+						const processed_moisture = Number(update_request.responseText);
 
-						document.getElementById("percentage-moisture").innerHTML = moisture_percentege + '%';
+						document.getElementById("percentage-moisture").innerHTML = processed_moisture + '%';
 					}
 				}
 
 				update_request.open("PUT", "/update_moisture?value="+Number(xml_response), true);
 				update_request.send();
-			}
-
-			function get_percentage(moisture_to_parse) {
-				if(moisture_to_parse >= 100) {
-					  return 100;
-				} else if (moisture_to_parse <= 0) {
-					  return 0;
-				}
-
-				return moisture_to_parse;
 			}
 
 			function respond() {
