@@ -37,19 +37,19 @@ void setup() {
 }
 
 void loop() {
-//  soil_moisture = analogread(sensor_pin);
-//  processed_moisture = map(soil_moisture, air_value, water_value, 0, 100);
+	//  soil_moisture = analogread(sensor_pin);
+	//  processed_moisture = map(soil_moisture, air_value, water_value, 0, 100);
 
 	http.begin(server_path + script_path);
-	http.addheader("content-type", "application/x-www-form-urlencoded");
+	http.addHeader("content-type", "application/x-www-form-urlencoded");
 
-    http.post("umidade="+string(soil_moisture)); // sends the moisture
+	http.POST("umidade="+string(soil_moisture)); // sends the moisture
 	//http.post("umidade="+string(processed_moisture)); // sends the moisture
 
 	//Serial.println(http.getstring());    //print response, debug
 
-    server.handleclient();
-    http.end();  // closes connection
+	server.handleclient();
+	http.end();  // closes connection
 
 	delay(1500);
 }
