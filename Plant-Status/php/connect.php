@@ -14,7 +14,8 @@ function connect() {
 	$mysql = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
 	
 	if($mysql->error) {
-		die("Could not connect to DB!");
+		echo("Could not connect to ".$db_name." database! Please verify host or name!");
+		exit(1);
 	}
 
 	return $mysql;
