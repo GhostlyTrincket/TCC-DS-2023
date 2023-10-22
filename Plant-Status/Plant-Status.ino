@@ -37,7 +37,7 @@ void setup() {
 }
 
 void loop() {
-	soil_moisture = analogread(sensor_pin);
+	soil_moisture = analogread(SENSOR_PIN);
 	processed_moisture = map(soil_moisture, air_value, water_value, 0, 100);
 
 
