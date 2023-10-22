@@ -40,7 +40,6 @@ void loop() {
 	soil_moisture = analogread(SENSOR_PIN);
 	processed_moisture = map(soil_moisture, air_value, water_value, 0, 100);
 
-
 	http.begin(server_path + script_path);
 	http.addHeader("Content-Type", "application/x-www-form-urlencoded");
 
