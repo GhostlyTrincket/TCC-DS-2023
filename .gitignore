@@ -1,2 +1,2 @@
-libraries/
-Plant-Status/teste
+# ignora tudo que for shell script
+*\.sh
