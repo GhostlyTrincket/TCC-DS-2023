@@ -2,7 +2,7 @@
 
 - [About the project](#about)
 - [Members](#members)
-- [Tools](#tools)
+- [Tools and Languages](#tools)
 - [Special Thanks](#thanks)
 - [References](#refs)
 
@@ -20,7 +20,22 @@ We are being oriented by our teacher and coordinator [@Alessandro Silva Rodrigue
 - Adalberto Monteiro de Oliveira Junior
 - João Paulo Ferrari Sant'Ana [(Me!)](https://github.com/GhostlyTrincket/)
 
-## <a id="tools">Tools used in this project.</a>
+## <a id="tools">Tools and Languages used in this project.</a>
+
+In this section we will state the equipament that was used to create Plant Stat.
+It was used:
+
+- The microntroler [ESP32.](https://www.espressif.com/en/products/socs/esp32)
+- The Capacitive Soil Moisture Sensor V1.2 and V2.
+- The [Apache](https://httpd.apache.org/) server.
+- The [MySQL.](https://mariadb.org/) database in the form of Mariadb.
+- C++.
+- PHP.
+- HTML.
+- CSS.
+- Pure Javascript and AJAX.
+- XML.
+- Plus the following protocols: TCP/IP, IPv4, UDP, mDNS and HTTP.
 
 ## <a id="thanks">Special Thanks</a>
 
