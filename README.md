@@ -1,11 +1,17 @@
 # Table of contents
 
-## About this project.
+- [About](#about-project)
+- [Members](#members)
+- [Tools](#tools)
+- [Special Thanks](#special-thanks)
+- [References](#refs)
 
-## Group Members.
+## <a id="about-project">About this project.</a>
 
-## Tools used in this project.
+## <a id="members">Group Members.</a>
 
-## Special Thanks
+## <a id="tools">Tools used in this project.</a>
 
-## References
+## <a id="special-thanks">Special Thanks</a>
+
+## <a id="refs">References</a>
