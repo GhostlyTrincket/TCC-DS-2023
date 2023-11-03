@@ -1,19 +1,11 @@
-# Olá! / Hello!
+# Table of contents
 
-O meu nome é João Paulo Ferrari Sant'Ana. Atualmente estudo na escola etec *helcy moreira martins aguiar*, este é o Trabalho de Conclusão de Curso (TCC), do qual o idealizador do projeto é o **@Estevan155**.
+## About this project.
 
-## Membros do Projeto:
+## Group Members.
 
-1. Estevan Merli Antonio (@Estevan155)
-2. José Nivaldo Moraes Vicente
-3. Adalberto Monteiro de Oliveira Junior
-4. João Paulo Ferrari Sant'Ana
+## Tools used in this project.
 
-My name is João Paulo Ferrari Sant'Ana. Currently studying at *helcy moreira martins aguiar*, this is my final paper, which the creator of the project is **@Estevan155**.
+## Special Thanks
 
-## Group Members
-
-1. Estevan Merli Antonio (@Estevan155)
-2. José Nivaldo Moraes Vicente
-3. Adalberto Monteiro de Oliveira Junior
-4. João Paulo Ferrari Sant'Ana
+## References
