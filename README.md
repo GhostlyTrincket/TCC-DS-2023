@@ -47,6 +47,7 @@ We, the creators of Plant Stat, would like to give a big thanks to every single 
 For our families.
 For our friends that we have made along the way, for our friends that we already have.
 We would like to thank everyone!
+
 ## <a id="refs">References</a>
 
 This project wasn't completely alone, I've based myself in others projects and in official documentation to conclude Plant Stat.
@@ -64,4 +65,4 @@ This project wasn't completely alone, I've based myself in others projects and i
 ### PHP code.
 
 - [PHP to get incoming moisture data](https://morioh.com/a/194e25bbbc8d/sending-sensor-data-to-localhost-using-iot-development-board-esp8266-12).
-- [PHP partially used from @Alessandro Silva Rodrigues.](https://github.com/Alesr50/InfoWebPDO2/).
+- [PHP partially used from __@Alessandro Silva Rodrigues__.](https://github.com/Alesr50/InfoWebPDO2/).
