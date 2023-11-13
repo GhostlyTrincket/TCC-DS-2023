@@ -43,6 +43,10 @@ In this project the following tools were used:
 
 ## <a id="thanks">Special Thanks</a>
 
+We, the creators of Plant Stat, would like to give a big thanks to every single familiar that we have, for if it were not for they, we probably could not end this project in a satisfied manner.
+For our families.
+For our friends that we have made along the way, for our friends that we already have.
+We would like to thank everyone!
 ## <a id="refs">References</a>
 
 This project wasn't completely alone, I've based myself in others projects and in official documentation to conclude Plant Stat.
