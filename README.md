@@ -52,10 +52,11 @@ We would like to thank everyone!
 
 This project wasn't completely alone, I've based myself in others projects and in official documentation to conclude Plant Stat.
 
-### Functions documentation.
+### Function documentation.
 
-- [C documentation of the sprintf function](https://www.tutorialspoint.com/c_standard_library/c_function_sprintf.htm).
-- [Arduino's map function](https://www.arduino.cc/reference/en/language/functions/math/map).
+- [Arduino "analogRead" documentation](https://www.arduino.cc/reference/en/language/functions/analog-io/analogread/).
+- [Arduino "map" function](https://www.arduino.cc/reference/en/language/functions/math/map).
+- [C sprintf function](https://www.tutorialspoint.com/c_standard_library/c_function_sprintf.htm).
 
 ### External Arduino and Sensor Code used.
 
@@ -65,4 +66,4 @@ This project wasn't completely alone, I've based myself in others projects and i
 ### PHP code.
 
 - [PHP to get incoming moisture data](https://morioh.com/a/194e25bbbc8d/sending-sensor-data-to-localhost-using-iot-development-board-esp8266-12).
-- [PHP partially used from __@Alessandro Silva Rodrigues__.](https://github.com/Alesr50/InfoWebPDO2/).
+- [PHP used from __@Alessandro Silva Rodrigues__.](https://github.com/Alesr50/InfoWebPDO2/).
