@@ -50,21 +50,21 @@ We would like to thank everyone!
 
 ## <a id="refs">References</a>
 
-This project wasn't completely made alone, we have based our work in others projects and in official documentation to conclude Plant Stat.
+This project was not made alone, we have based our work in others projects and in official documentation to conclude Plant Stat.
 The following is a list of documentation used in the Arduino part of things (APOT) of the project.
 
 ### Function documentation.
 
 - [Arduino "analogRead" documentation](https://www.arduino.cc/reference/en/language/functions/analog-io/analogread/).
 - [Arduino "map" function](https://www.arduino.cc/reference/en/language/functions/math/map).
-- [C sprintf function](https://www.tutorialspoint.com/c_standard_library/c_function_sprintf.htm).
+- [C "sprintf" function](https://www.tutorialspoint.com/c_standard_library/c_function_sprintf.htm).
 
 ### External Arduino and Sensor Code used.
 
-- [Esp32 WebPage](https://github.com/kriskasprzak/esp32_webpage).
 - [Calibration needed for the Capacitive Soil Moisture Sensor](https://how2electronics.com/interface-capacitive-soil-moisture-arduino/).
+- [Esp32 WebPage](https://github.com/kriskasprzak/esp32_webpage).
 
 ### PHP code.
 
-- [Sensor data to server](https://morioh.com/a/194e25bbbc8d/sending-sensor-data-to-localhost-using-iot-development-board-esp8266-12).
 - [PHP used from __@Alessandro Silva Rodrigues__.](https://github.com/Alesr50/InfoWebPDO2/).
+- [Sensor data to server](https://morioh.com/a/194e25bbbc8d/sending-sensor-data-to-localhost-using-iot-development-board-esp8266-12).
