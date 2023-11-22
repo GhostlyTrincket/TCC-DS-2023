@@ -61,10 +61,10 @@ The following is a list of documentation used in the Arduino part of things (APO
 
 ### External Arduino and Sensor Code used.
 
-- [Calibration needed for the Capacitive Soil Moisture Sensor](https://how2electronics.com/interface-capacitive-soil-moisture-arduino/).
+- [Calibration for the Capacitive Soil Moisture Sensor](https://how2electronics.com/interface-capacitive-soil-moisture-arduino/).
 - [Esp32 WebPage](https://github.com/kriskasprzak/esp32_webpage).
 
 ### PHP code.
 
-- [PHP used from __@Alessandro Silva Rodrigues__.](https://github.com/Alesr50/InfoWebPDO2/).
+- [PHP obtained from __@Alessandro Silva Rodrigues__.](https://github.com/Alesr50/InfoWebPDO2/).
 - [Sensor data to server](https://morioh.com/a/194e25bbbc8d/sending-sensor-data-to-localhost-using-iot-development-board-esp8266-12).

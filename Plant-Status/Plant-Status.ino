@@ -23,7 +23,7 @@ const int water_value = 3111;
 
 // path and parameters to send to MySQL Database
 // there's no way to concatenate char* so strings must be at work
-const String server_path = "http://192.168.1.13/";
+const String server_path = "http://192.168.1.109/";
 const String script_path = "plant-status/post.php";
 
 void setup() {
@@ -37,8 +37,7 @@ void setup() {
 }
 
 void loop() {
-	// TODO -> test Arduino's type casting
-	soil_moisture = analogread(SENSOR_PIN);
+	soil_moisture = analogRead(SENSOR_PIN);
 	processed_moisture = map(soil_moisture, air_value, water_value, 0, 100);
 
 	http.begin(server_path + script_path);
