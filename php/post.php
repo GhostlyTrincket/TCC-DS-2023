@@ -2,12 +2,13 @@
 	include("./connect.php");
 
 	$mysql = connect();
-	$insert = "INSERT INTO umidade_tbl(umidade) VALUES(".$_POST['umidade'].")";
+
+	$sql_op = "INSERT INTO umidade_tbl(umidade) VALUES(".$_POST["umidade"].")";
 
 	if(empty($_POST["umidade"])) {
 		echo "error";
 	} else {
-		if(!$mysql->query($insert)) {
+		if(!$mysql->query($sql_op)) {
 			echo "houve um erro durante a inserção da data!";
 		}
 
@@ -15,5 +16,4 @@
 	}
 
 	$mysql->close();
-
 	$mysql = NULL;
