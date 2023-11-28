@@ -21,8 +21,7 @@ int processed_moisture = 0;
 const int air_value = 2753;
 const int water_value = 3111;
 
-// path and parameters to send to MySQL Database
-// there's no way to concatenate char* so strings must be at work
+// path to where the script that sends the data to the MySQL Database is
 const String server_path = "http://192.168.1.109/";
 const String script_path = "plant-status/post.php";
 
@@ -43,12 +42,12 @@ void loop() {
 	http.begin(server_path + script_path);
 	http.addHeader("Content-Type", "application/x-www-form-urlencoded");
 
-	http.POSTt("umidade="+String(processed_moisture)); // sends the moisture
+	http.POST("umidade="+String(processed_moisture)); // sends the moisture
 
-	// Serial.println(http.getstring());    //print response, debug
+	// Serial.println(http.getstring());    // print response, debug
 
 	server.handleClient();
-	http.end();  // closes connection
+	http.end();
 
 	delay(1500);
 }
@@ -56,7 +55,7 @@ void loop() {
 void init_wifi() {
 	WiFi.begin(WIFI_NAME, WIFI_PASSWORD);
 
-	while(WiFi.status() != WL_CONNECTED) {} // while it's not connected to wifi, try to connect to it.
+	while(WiFi.status() != WL_CONNECTED) {}
 }
 
 void init_routes() {
@@ -76,7 +75,7 @@ void send_website() {
 }
 
 void send_xml() {
-	strcpy(xml, "<?xml version = '1.0'?>\n<Data>\n"); // xml header
+	strcpy(xml, "<?xml version = '1.0'?>\n<Data>\n");
 
 	sprintf(buffer, "<Moisture>%d</Moisture>", processed_moisture);
 	strcat(xml, buffer);
