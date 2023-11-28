@@ -1,11 +1,6 @@
 <?php
 
 function connect() {
-//	$db_name = "teste_db";
-//	$db_pass = "ghostlyTr1nk37";
-//	$db_user = "root";
-//	$db_host = "localhost";
-
 	$db_name = "moisture";
 	$db_pass = "plantstatus";
 	$db_user = "leafroot";
