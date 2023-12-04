@@ -5,8 +5,8 @@
 #include "Main_Page.h"
 
 #define SENSOR_PIN 36
-#define WIFI_NAME "plantstat"
-#define WIFI_PASSWORD "status22"
+#define WIFI_NAME ""
+#define WIFI_PASSWORD ""
 
 WebServer server(80);
 HTTPClient http;
@@ -18,8 +18,8 @@ int soil_moisture = 0;
 int processed_moisture = 0;
 
 // values to calibrate the sensor
-const int air_value = 2753;
-const int water_value = 3111;
+const int air_value = 2832;
+const int water_value = 1737;
 
 // path to where the script that sends the data to the MySQL Database is
 const String server_path = "http://192.168.1.109/";
@@ -42,14 +42,14 @@ void loop() {
 	http.begin(server_path + script_path);
 	http.addHeader("Content-Type", "application/x-www-form-urlencoded");
 
-	http.POST("umidade="+String(processed_moisture)); // sends the moisture
+	http.POST("umidade="+String(processed_moisture));
 
-	// Serial.println(http.getstring());    // print response, debug
+	// Serial.println(http.getString());    // print response, debug
 
-	server.handleClient();
+	// server.handleClient();
 	http.end();
 
-	delay(1500);
+	delay(3000);
 }
 
 void init_wifi() {
@@ -86,7 +86,7 @@ void send_xml() {
 }
 
 void update_moisture() {
-	String server_arg = server.arg("value"); // argument to be used in the URL
+	String server_arg = server.arg("value");
 
 	strcpy(buffer, "");
 	sprintf(buffer, "%d", processed_moisture);
