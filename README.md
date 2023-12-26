@@ -13,11 +13,12 @@ Hello! This is the Final paper of the students Estevan Merli Antonio, Adalberto 
 The objective is to create a sensor that can read the moisture from the ground and send it to a dashboard on a website.
 
 We are being oriented by our teacher and coordinator [@Alessandro Silva Rodrigues.](https://github.com/Alesr50)
+
 ## <a id="members">Group Members.</a>
 
 - Estevan Merli Antonio [@Estevan155](https://github.com/Estevan155).
-- José Nivaldo Moraes Vicent).
-- Adalberto Monteiro de Oliveira Junio).
+- José Nivaldo Moraes Vicente.
+- Adalberto Monteiro de Oliveira Junior.
 - João Paulo Ferrari Sant'Ana [(Me!)](https://github.com/GhostlyTrincket/).
 
 ## <a id="tools">Tools and Languages used in this project.</a>
@@ -66,5 +67,5 @@ The following is a list of documentation used in the Arduino part of things (APO
 
 ### PHP code.
 
-- [PHP obtained from __@Alessandro Silva Rodrigues__.](https://github.com/Alesr50/InfoWebPDO2/).
+- PHP obtained from [__@Alessandro Silva Rodrigues__](https://github.com/Alesr50/InfoWebPDO2/).
 - [Sensor data to server](https://morioh.com/a/194e25bbbc8d/sending-sensor-data-to-localhost-using-iot-development-board-esp8266-12).
