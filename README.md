@@ -26,7 +26,7 @@ We are being oriented by our teacher and coordinator [@Alessandro Silva Rodrigue
 In this section we will state the equipament that was used to create Plant Stat.
 In this project the following tools were used:
 
-- The microcontroller [ESP32.](https://www.espressif.com/en/products/socs/esp32).
+- The microcontroller [ESP32](https://www.espressif.com/en/products/socs/esp32).
 - The Capacitive Soil Moisture Sensor V1.2 and V2.
 - The [Apache](https://httpd.apache.org/) server.
 - The [MySQL](https://mariadb.org/) database in the form of Mariadb.

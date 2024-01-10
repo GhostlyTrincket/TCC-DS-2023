@@ -12,6 +12,6 @@
 	$mysql->close();
 	$sel_last_row_result->free();
 
-	echo $last_row["moisture"]."\n";
+	echo $last_row["moisture"];
 
 	$mysql = NULL;
