@@ -1,13 +1,7 @@
 <?php
 
-function connect() {
-	$db_name = "moisture";
-	$db_pass = "plantstatus";
-	$db_user = "leafroot";
-	$db_host = "192.168.1.13";
-	$db_sock = 3306;
-
-	$mysql = mysqli_connect($db_host, $db_user, $db_pass, $db_name, $db_sock);
+function connect_to(string $db_name, string $password, string $user, string $host = "localhost", int $port) {
+	$mysql = mysqli_connect($host, $user, $password, $db_name, $port);
 	
 	if($mysql->connect_errno) {
 		echo "Could not connect to DB ".$db_name."!\n";
