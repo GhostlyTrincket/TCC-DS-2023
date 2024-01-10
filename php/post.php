@@ -3,7 +3,7 @@
 
 	$mysql = connect();
 
-	$sql_op = "INSERT INTO umidade_tbl(umidade) VALUES(".$_POST["umidade"].")";
+	$sql_op = "INSERT INTO tbl_moisture(moisture) VALUES(".$_POST["umidade"].")";
 
 	if(empty($_POST["umidade"])) {
 		echo "error";
