@@ -11,8 +11,8 @@
 WebServer server(80);
 HTTPClient http;
 
-char xml[1024]; // buffer for XML operations
-char buffer[64]; // buffer to make operations
+char xml[1024]; 	// buffer for XML operations
+char buffer[64]; 	// buffer to make operations
 
 int soil_moisture = 0;
 int processed_moisture = 0;
@@ -46,10 +46,10 @@ void loop() {
 
 	// Serial.println(http.getString());    // print response, debug
 
-	// server.handleClient();
+	server.handleClient();
 	http.end();
 
-	delay(3000);
+	delay(300000);
 }
 
 void init_wifi() {
@@ -86,7 +86,7 @@ void send_xml() {
 }
 
 void update_moisture() {
-	String server_arg = server.arg("value");
+	String server_arg = server.arg("m");
 
 	strcpy(buffer, "");
 	sprintf(buffer, "%d", processed_moisture);

@@ -40,7 +40,7 @@ const char MAIN_PAGE[] PROGMEM = R"=====(
 					}
 				}
 
-				update_request.open("PUT", "/update_moisture?value="+Number(xml_response), true);
+				update_request.open("PUT", "/update_moisture?m="+Number(xml_response), true);
 				update_request.send();
 			}
 
