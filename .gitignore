@@ -1,2 +1,2 @@
-# ignora tudo que for shell script
-*\.sh
+# ignora o arquivo "connect.php"
+php\/connect.php
